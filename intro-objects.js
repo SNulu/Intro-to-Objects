@@ -9,6 +9,15 @@
 // has the value blue, it should change it to red, and 
 // vice-versa.
 
+var flipColor = function(tile){
+    if(tile.color === "red" ){
+        tile.color = "blue"
+    }else if (tile.color === "blue"){
+        tile.color = "red"
+    }
+    return tile
+
+}
 
 var tile = {
     width: "200px",
@@ -27,6 +36,14 @@ console.assert(flipColor(tile2).color === "blue")
 // Write a function called getFullNames that takes an array 
 // of objects with first and last names and returns an array 
 // of strings, where each string is a customer's full name.
+var getFullNames = function (customers) {
+    var fullnames = []
+
+    for( var i = 0; i < customers.length; i++){
+        fullnames.push(customers[i].first +' '+customers[i].last )
+    }
+    return fullnames
+}
 
 var customers = [
     { first: 'Joe', last: 'Blogs'},
@@ -46,6 +63,26 @@ console.assert(getFullNames(customers)[1] === "John Smith")
 // The dog object should have attributes like legs, weight and color. The dog *constructor* 
 // (which is, almost, what this is) should take a name input, and the dog should receive the 
 // assigned name.
+var generateDog = function (dogName){
+
+    var dog = {
+        legs: 4,
+        weight: 80,
+        name: dogName,
+        color: ["white", "black", "brown"],
+
+        speak: function(string) {
+                var words = string.split(' ')
+                for(var i = 0; i < words.length; i++){
+                    var letters = words[i].split('')
+                    letters[0]  = "r"
+                    words[i]    = letters.join('')
+                }
+                return words.join(' ')
+          }
+    } 
+    return dog
+}
 
 var dog = generateDog('rex')
 
@@ -74,8 +111,19 @@ console.assert(dog.speak('so hungry') === 'ro rungry')
 
 // e.g:
 // pluck(stooges, 'name') should yield the array, ['moe','larry','curly']
+var pluck = function (stooges, propertyName) {
 
-var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}]
+    var stoogesProperty = []
+
+    for( var i = 0; i < stooges.length; i++){
+        stoogesProperty.push(stooges[i][propertyName])
+    }
+    return stoogesProperty
+}
+
+var stooges = [{name: 'moe', age: 40},     // i=0
+               {name: 'larry', age: 50},  //  i=1
+               {name: 'curly', age: 60}]  // i=2
 
 console.assert(pluck(stooges, 'name')[0] === 'moe')
 console.assert(pluck(stooges, 'age')[2] === 60)
@@ -88,6 +136,33 @@ console.assert(pluck(stooges, 'age')[2] === 60)
 // an object which stores the frequency of each word in the string.
 
 // Note that your counts should NOT be case-sensitive.
+var getCounts = function(text){
+    // declare empty object
+    // var resultObj={}
+    // input = string
+    // output = objects
+    // splite the text into words by using regular expressions (regex)
+    var words = text.split(/[\s,\.]+/)
+    // console.log(words)
+    // {} initializes empty objects
+    var resultObj = {}
+
+    // populate Obj
+    //  for loop - start; stop; stride
+    for( var i = 0; i < words.length; i++){
+        // lower case i-th word
+        var curretWord = words[i].toLowerCase()
+
+        if(resultObj[curretWord]){
+            resultObj[curretWord]++
+        }else{
+            resultObj[curretWord] = 1
+        }
+    }
+    // console.log("but "+resultObj.but)
+    // console.log("black "+resultObj.black)
+    return resultObj
+}
 
 var text = "It’s obviously not the case, but T’Challa—the Black Panther and mythical ruler of Wakanda—has always struck as the product of the black nationalist dream, a walking revocation of white supremacist myth. T’Challa isn’t just a superhero in the physical sense, he is one of the smartest people in the world, ruling the most advanced civilization on the planet. Wakanda’s status as ever-independent seems to eerily parallel Ethiopia’s history as well as its place in the broader black imagination. Maybe it’s only me, but I can’t read Jason Aaron’s superb “See Wakanda And Die” and not think of Adowa. \
 Comic book creators, like all story-tellers, get great mileage out of myth and history. But given the society we live in, some people’s myths are privileged over others. Some of that is changing, no doubt. In the more recent incarnations of T’Challa you can see Christopher Priest invoking the language of the Hausa or Reginald Hudlin employing the legacy of colonialism. These were shrewd artistic decisions, rooted in the fact that anyone writing Black Panther enjoys an immediate, if paradoxical, advantage: the black diaspora is terra incognita for much of the world. What does the broader world really know of Adowa? Of Nanny and Cudjoe? Of the Maji-Maji rebellion? Of Legba and Oshun?  Of Shine? Of High John The Conqueror? T’Challa’s writers have always enjoyed access to a rich and under-utilized pool of allusion and invocation."
